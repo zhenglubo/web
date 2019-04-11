@@ -13,5 +13,10 @@
   "devDependencies": {
     "umi": "^2.6.10",
     "umi-plugin-react": "^1.7.2"
+  },
+  "dependencies": {
+    "echarts": "^4.2.1",
+    "lodash": "^4.17.11",
+    "lodash-decorators": "^6.0.1"
   }
 }

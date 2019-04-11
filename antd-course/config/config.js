@@ -38,6 +38,45 @@ export default {
             },
             
           ]
+        },
+        {
+          path:'/summary',
+          routes:[
+            {
+              path:'/summary/month',component:'Summary/month'
+            },
+            {
+              path:'/summary/money',component:'Summary/money'
+            },
+            {
+              path:'/summary/settle',component:'Summary/Settle'
+            },
+            
+          ]
+        },
+        {
+          path:'/fleet',
+          routes:[
+            {
+              path:'/fleet/car',component:'Fleet/car'
+            },
+            {
+              path:'/fleet/driver',component:'Fleet/driver'
+            },
+            
+          ]
+        },
+        {
+          path:'/route',
+          routes:[
+            {
+              path:'/route/route',component:'route/route'
+            },
+            {
+              path:'/route/company',component:'route/company'
+            },
+            
+          ]
         }
       ]
     }],

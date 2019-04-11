@@ -58,6 +58,65 @@ let routes = [
         ]
       },
       {
+        "path": "/summary",
+        "routes": [
+          {
+            "path": "/summary/month",
+            "component": require('../Summary/month').default,
+            "exact": true
+          },
+          {
+            "path": "/summary/money",
+            "component": require('../Summary/money').default,
+            "exact": true
+          },
+          {
+            "path": "/summary/settle",
+            "component": require('../Summary/Settle').default,
+            "exact": true
+          },
+          {
+            "component": () => React.createElement(require('D:/workspace/antd-course/node_modules/_umi-build-dev@1.7.7@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+          }
+        ]
+      },
+      {
+        "path": "/fleet",
+        "routes": [
+          {
+            "path": "/fleet/car",
+            "component": require('../Fleet/car').default,
+            "exact": true
+          },
+          {
+            "path": "/fleet/driver",
+            "component": require('../Fleet/driver').default,
+            "exact": true
+          },
+          {
+            "component": () => React.createElement(require('D:/workspace/antd-course/node_modules/_umi-build-dev@1.7.7@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+          }
+        ]
+      },
+      {
+        "path": "/route",
+        "routes": [
+          {
+            "path": "/route/route",
+            "component": require('../route/route').default,
+            "exact": true
+          },
+          {
+            "path": "/route/company",
+            "component": require('../route/company').default,
+            "exact": true
+          },
+          {
+            "component": () => React.createElement(require('D:/workspace/antd-course/node_modules/_umi-build-dev@1.7.7@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+          }
+        ]
+      },
+      {
         "component": () => React.createElement(require('D:/workspace/antd-course/node_modules/_umi-build-dev@1.7.7@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
       }
     ]
