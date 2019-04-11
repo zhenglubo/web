@@ -14,5 +14,5 @@ app.use(createLoading());
   app.use(plugin);
 });
 
-app.model({ namespace: 'order', ...(require('D:/workspace/antd-course/src/models/order.js').default) });
-app.model({ namespace: 'user', ...(require('D:/workspace/antd-course/src/models/user.js').default) });
+app.model({ namespace: 'order', ...(require('D:/workspace/web/antd-course/src/models/order.js').default) });
+app.model({ namespace: 'user', ...(require('D:/workspace/web/antd-course/src/models/user.js').default) });
