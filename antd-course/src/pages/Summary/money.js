@@ -119,7 +119,7 @@ export default class money extends Component{
     render(){
         return(
 
-            <div>
+            <div >
                 <Card bordered={false}>
                     <Row gutter={16}>
                         <Col span={8}>
@@ -165,7 +165,7 @@ export default class money extends Component{
                             <div id="main1"  style={{height: 400 }} />
                         </Col>
                         <Divider type='vertical'/>
-                        <Col span={14}>
+                        <Col span={14} style={{marginLeft:20}}>
                             <Card bordered={false} style={{marginLeft:100,width:'100%',height:400}}title='dierge'>12333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333</Card>
                         </Col>
                     </Row>

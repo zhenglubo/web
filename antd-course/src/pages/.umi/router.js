@@ -30,6 +30,11 @@ let routes = [
             "exact": true
           },
           {
+            "path": "/order/manual",
+            "component": require('../Order/manual').default,
+            "exact": true
+          },
+          {
             "component": () => React.createElement(require('D:/workspace/web/antd-course/node_modules/_umi-build-dev@1.7.8@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
           }
         ]

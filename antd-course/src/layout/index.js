@@ -37,9 +37,9 @@ class BasicLayout extends Component {
                     </Menu.Item>
                     <SubMenu key="sub1" title={<span><Icon type="dashboard" /><span>订单管理</span></span>}>
                         <Menu.Item key="2"><Link to='/order/order'>全部订单</Link></Menu.Item>
-                        <Menu.Item key="3">代发订单</Menu.Item>
-                        <Menu.Item key="4">处理中订单</Menu.Item>
-                        <Menu.Item key="5">已完成订单</Menu.Item>
+                        <Menu.Item key="3" ><Link to='/order/manual'>手动开单</Link></Menu.Item>
+                        {/* <Menu.Item key="4">处理中订单</Menu.Item>
+                        <Menu.Item key="5">已完成订单</Menu.Item> */}
                     </SubMenu>
                     <SubMenu key="sub2" title={<span><Icon type="car" theme="filled" /><span>车队管理</span></span>}>
                         <Menu.Item key="6"><Link to='/fleet/car'>货车信息</Link></Menu.Item>
@@ -54,11 +54,11 @@ class BasicLayout extends Component {
                         <Menu.Item key="11"><Link to='/summary/money'>订单金额统计</Link></Menu.Item>
                         <Menu.Item key="12"><Link to='/summary/settle'>结算金额统计</Link></Menu.Item>
                     </SubMenu>
-                    <SubMenu key="sub4" title={<span><Icon type="line-chart" /><span>analyse</span></span>}>
+                    {/* <SubMenu key="sub4" title={<span><Icon type="line-chart" /><span>analyse</span></span>}>
                         <Menu.Item key="13"><Link to="/analyse/aa">aa</Link></Menu.Item>
                         <Menu.Item key="14"><Link to="/analyse/bb">bb</Link></Menu.Item>
                         <Menu.Item key="15"><Link to="/analyse/cc">cc</Link></Menu.Item>
-                    </SubMenu>
+                    </SubMenu> */}
             </Menu>
             </Sider>
               <Layout >

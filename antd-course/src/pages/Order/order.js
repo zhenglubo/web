@@ -240,7 +240,7 @@ export default class order extends Component{
       100: {
         style: {
           color: 'red',
-          marginLeft:-30
+          marginLeft:-50
         },
         label: <strong>退款中</strong>,
       },
@@ -282,7 +282,7 @@ export default class order extends Component{
             <Col span={8}>运费：￥100</Col>
           </Row>
           <Row gutter={16} >
-            <Col span={8}>是否钉箱：是</Col>
+            <Col span={8}>是否钉箱：<Badge status="success" text="是" /></Col>
             <Col span={8}>钉箱费用：￥50</Col>
           </Row>
           <Row gutter={16} >

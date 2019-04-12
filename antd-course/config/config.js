@@ -21,7 +21,8 @@ export default {
         {
           path:'/order',
           routes:[
-            {path:'/order/order',component:'Order/Order'}
+            {path:'/order/order',component:'Order/Order'},
+            {path:'/order/manual',component:'Order/manual'}
           ]
         },
         {
