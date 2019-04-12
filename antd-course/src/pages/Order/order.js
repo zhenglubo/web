@@ -1,4 +1,4 @@
-import { Table ,Divider,Badge,Form,Row,Col,Input ,Select,Button  } from 'antd';
+import { Table ,Divider,Badge,Form,Row,Col,Input ,Select,Button ,Slider ,Modal} from 'antd';
 import  React,{Component,Fragment} from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
@@ -27,10 +27,24 @@ export default class order extends Component{
       total:0,
     },
     formValues: {},
+    current: {},
+    deleteVisible: false,
+    confirmLoading: false,
   }
   columns = [
-    {title: 'ID',dataIndex: 'id',key:'1',width: 50,fixed:'left'},
-    {title:'订单号',dataIndex:'orderId',key:'2',width: 150,fixed:'left'},
+    {
+      title: 'ID',
+      dataIndex: 'id',key:'1',
+      width: 50,
+      //fixed:'left'
+    },
+    {
+      title:'订单号',
+      dataIndex:'orderId',
+      key:'2',
+      width: 150,
+      //fixed:'left'
+    },
     {
       title:'订单状态',
       dataIndex:'orderStatus',
@@ -84,22 +98,29 @@ export default class order extends Component{
       title:'操作',
       dataIndex:'',
       key:'operation',
-      fixed:'right',
+      //fixed:'right',
       width:150, 
       render: (text, record) => (
         <Fragment>
           <a onClick={() => this.handleUpdateModalVisible(true, record)}>修改</a>
           <Divider type="horize" />
-          <a href="">删除</a>
+          <a onClick={()=>this.handDelete(true,record)}>删除</a>
         </Fragment>
       ),
     },
   ];
    
 
+  handDelete=(flag,record)=>{
+    this.setState({
+      deleteVisible:true,
+      confirmLoading:true,
+    });
+  }
   handleUpdateModalVisible=(flag,record)=>{
     this.setState({
-      visible:true
+      visible:true,
+      current:record,
     })
   }
 
@@ -172,7 +193,7 @@ export default class order extends Component{
           <Col md={8} sm={24}>
             <FormItem label="订单状态">
               {getFieldDecorator('orderStatus')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
+                <Select placeholder="请选择" style={{ width: 200 }}>
                   <SelectOption value="0">待发货</SelectOption>
                   <SelectOption value="1">运输中</SelectOption>
                   <SelectOption value="2">已完成</SelectOption>
@@ -181,7 +202,7 @@ export default class order extends Component{
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <span className={styles.submitButtons}>
+            <span className={styles.submitButtons} style={{float:"right"}}>
               <Button type="primary" htmlType="submit">
                 查询
               </Button>
@@ -198,14 +219,118 @@ export default class order extends Component{
     );
   }
 
+
+  showDetail=(record)=>{
+    console.log(record);
+    const marks = {
+      0: '待发货',
+      25: '处理中',
+      50: {
+        style: {
+          color: 'green',
+        },
+        label: <strong>已完成</strong>,
+      },
+      75: {
+        style: {
+          color: 'green',
+        },
+        label: <strong>结算中</strong>,
+      },
+      100: {
+        style: {
+          color: 'red',
+          marginLeft:-30
+        },
+        label: <strong>退款中</strong>,
+      },
+    };
+      return(
+        <div>
+          <h3>订单详情：{record.orderId}</h3>
+          <Divider />
+          <h4>发货人信息</h4>
+          <Row gutter={16} title='用户信息'>
+            <Col span={8}>用户ID：{record.userId}</Col>
+            <Col span={8}>用户名称：张珊</Col>
+            <Col span={8}>用户电话：15489789604</Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={8}>用户住址：广州市白云区陈田村汽配城3路12号</Col>
+            <Col span={8}>性别：男</Col>
+          </Row>
+          <Divider />
+          <h4>收货人信息</h4>
+          <Row gutter={16} title='用户信息'>
+            <Col span={8}>用户ID：{record.userId}</Col>
+            <Col span={8}>用户名称：李斯</Col>
+            <Col span={8}>用户电话：15698784456</Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={8}>收货人地址：广州市白云区陈田村汽配城3路12号</Col>
+          </Row>
+          <Divider />
+          <h4>订单信息</h4>
+          <Row gutter={16} title='用户信息'>
+            <Col span={8}>订单编号：{record.orderId}</Col>
+            <Col span={8}>订单创建时间：2019-04-15 13:10:01</Col>
+            <Col span={8}>订单金额：￥27800</Col>
+          </Row>
+          <Row gutter={16} >
+            <Col span={8}>运输方式：汽运</Col>
+            <Col span={8}>付款方式：现付</Col>
+            <Col span={8}>运费：￥100</Col>
+          </Row>
+          <Row gutter={16} >
+            <Col span={8}>是否钉箱：是</Col>
+            <Col span={8}>钉箱费用：￥50</Col>
+          </Row>
+          <Row gutter={16} >
+            <Col span={8}>是否保价：是</Col>
+            <Col span={8}>保价费用：￥30</Col>
+            <Col span={8}>保价金额：￥2800</Col>
+          </Row>
+          <Row gutter={16} >
+            <Col span={8}>发货日期：2019-04-15</Col>
+            <Col span={8}>收货日期：2019-04-15</Col>
+          </Row>
+          <Divider />    
+          <Row>
+            <h4>订单状态</h4>
+            <Slider marks={marks} defaultValue={2*25} title='订单状态'/>
+          </Row>
+        </div>
+        
+      )
+    
+    
+  }
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+      current:{}
+    });
+  }
+
+  handleCancel2 = () => {
+    this.setState({
+      deleteVisible: false,
+      confirmLoading:false,
+    });
+  }
+
   render(){
     const {data,pagination} =this.props.order;
+    const {visible,current,deleteVisible,confirmLoading} = this.state;
+    const { getFieldDecorator } = this.props.form;
+
     return(
-      <div>
+      <div style={{backgroundColor:'#0123'}}>
         <Card>
           <PageHeader>{this.appendSearchForm()}</PageHeader>
         </Card>
-        <Card>
+        <Card style={{marginTop:20}}>
           <Table 
               columns={this.columns}
               dataSource={data}
@@ -215,10 +340,83 @@ export default class order extends Component{
                 total:pagination.total,
                 onChange:this.queryPage,
               }}
-              scroll={{ x: 2000}}
+              // scroll={{ x: 2000}}
+              expandedRowRender={(record)=>{return this.showDetail(record)}}
           />
         </Card>
-          
+        <Modal visible={visible}
+          title='编辑修改'
+          destroyOnClose
+          onCancel={this.handleCancel}
+          onOk={this.handOk}
+          width={800}
+        
+        >
+        <Form onSubmit={this.handleSubmit} layout="inline">
+            <Row gutter={16}>
+              <Col span={10}>
+                <FormItem label="发货方名称" {...this.formLayout} layout="inline">
+                    {getFieldDecorator('userId', {
+                      rules: [{ required: true, message: '请输入任务名称' }],
+                      initialValue:current?current.userId:null,
+                    })(<Input placeholder="请输入" />)}
+                </FormItem>
+              </Col>
+              <Col span={10}>
+                <FormItem label="发货方名称" {...this.formLayout} layout="inline">
+                    {getFieldDecorator('userId', {
+                      rules: [{ required: true, message: '请输入任务名称' }],
+                      initialValue:current?current.userId:null,
+                    })(<Input placeholder="请输入" />)}
+                </FormItem>
+              </Col>
+            </Row>
+            {/* <Row>
+              <FormItem label="联系电话" {...this.formLayout}>
+                {getFieldDecorator('phone', {
+                  rules: [{ required: true, message: '请输入用户名' }],
+                  initialValue:current?current.phone:null,
+                })(
+                  <Input placeholder="请输入" />
+                )}
+              </FormItem>
+            </Row>
+            <Row>
+              <FormItem label="订单状态" {...this.formLayout}>
+                {getFieldDecorator('status', {
+                  rules: [{ required: true, message: '请设置订单状态' }],
+                  initialValue: current?current.status:null,
+                })(
+                  <Select placeholder="请选择">
+                    <SelectOption value="0">未发货</SelectOption>
+                    <SelectOption value="1">运输中</SelectOption>
+                    <SelectOption value="2">已完成</SelectOption>
+                  </Select>
+                )}
+              </FormItem>
+            </Row>
+            <Row>
+              <FormItem  label="评论" {...this.formLayout}>
+                {getFieldDecorator('content', {
+                  rules: [{ message: '请输入评论', required:true}],
+                  initialValue: current?current.content:null,
+                })(
+                  <Input placeholder="请输入" />)}
+              </FormItem>
+            </Row>   */}
+          </Form>
+        </Modal> 
+        {/* 删除提示框 */}
+        <Modal
+          title="删除提示框"
+          style={{color:'red'}}
+          visible={deleteVisible}
+          //onOk={this.handleOk}
+          confirmLoading={confirmLoading}
+          onCancel={this.handleCancel2}
+        >
+        <p>确定要删除吗？</p>
+        </Modal>
       </div>
       
     )
