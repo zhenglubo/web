@@ -160,7 +160,17 @@ export default class money extends Component{
                 <Divider />
                 <Tabs defaultActiveKey="1" onChange={this.callback}>
                     <TabPane tab="日营业报表" key="1">
-                        <div id="main1"  style={{width:'50%',height: 400 }} />
+                    <Row gutter={16}>
+                        <Col span={8}>
+                            <div id="main1"  style={{height: 400 }} />
+                        </Col>
+                        <Divider type='vertical'/>
+                        <Col span={14}>
+                            <Card bordered={false} style={{marginLeft:100,width:'100%',height:400}}title='dierge'>12333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333</Card>
+                        </Col>
+                    </Row>
+                        
+                        
                     </TabPane>
                     <TabPane tab='月营业报表' key="2">
                     <Month />  
