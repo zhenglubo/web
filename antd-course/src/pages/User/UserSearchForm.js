@@ -39,24 +39,24 @@ export default class UserSearchForm extends Component {
     render() {
       const { getFieldDecorator } = this.props.form;
       return (
-        <Form layout="inline" onSubmit={this.handleSearch}>
-          <Row >
-            <Col span={6} key={1}>
-              <Form.Item label={'Username'} style={{marginTop:10,marginLeft:10}}>
+        <Form layout="inline" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} onSubmit={this.handleSearch}>
+          <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+            <Col span={8} key={1}>
+              <Form.Item label={'姓名/昵称'} style={{marginTop:10,marginLeft:10}}>
                 {getFieldDecorator('username', {})(
-                  <Input placeholder="placeholder" />
+                  <Input placeholder="姓名/昵称" />
                 )}
               </Form.Item>
             </Col>
-            <Col span={6} key={2}>
-            <Form.Item label={'Contact Phone'} style={{marginTop:10,marginLeft:10}}>
+            <Col span={8} key={2}>
+            <Form.Item label={'联系电话'} style={{marginTop:10,marginLeft:10}}>
             {getFieldDecorator('contactPhone', {})(
-                  <Input placeholder="placeholder" />
+                  <Input placeholder="联系电话" />
                 )}
             </Form.Item>
             </Col>
           </Row>
-          <Row>
+          <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
             <Col span={24} style={{ textAlign: 'right'}}>
               <Button type="primary" htmlType="submit">Search</Button>
               <Button style={{ marginLeft: 8 ,marginRight:20}} onClick={this.handleReset}>

@@ -35,7 +35,7 @@ let routes = [
             "exact": true
           },
           {
-            "component": () => React.createElement(require('D:/workspace/web/antd-course/node_modules/_umi-build-dev@1.7.8@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+            "component": () => React.createElement(require('E:/项目/web/web/antd-course/node_modules/_umi-build-dev@1.8.0@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
           }
         ]
       },
@@ -58,7 +58,7 @@ let routes = [
             "exact": true
           },
           {
-            "component": () => React.createElement(require('D:/workspace/web/antd-course/node_modules/_umi-build-dev@1.7.8@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+            "component": () => React.createElement(require('E:/项目/web/web/antd-course/node_modules/_umi-build-dev@1.8.0@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
           }
         ]
       },
@@ -81,7 +81,7 @@ let routes = [
             "exact": true
           },
           {
-            "component": () => React.createElement(require('D:/workspace/web/antd-course/node_modules/_umi-build-dev@1.7.8@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+            "component": () => React.createElement(require('E:/项目/web/web/antd-course/node_modules/_umi-build-dev@1.8.0@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
           }
         ]
       },
@@ -99,7 +99,7 @@ let routes = [
             "exact": true
           },
           {
-            "component": () => React.createElement(require('D:/workspace/web/antd-course/node_modules/_umi-build-dev@1.7.8@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+            "component": () => React.createElement(require('E:/项目/web/web/antd-course/node_modules/_umi-build-dev@1.8.0@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
           }
         ]
       },
@@ -117,17 +117,17 @@ let routes = [
             "exact": true
           },
           {
-            "component": () => React.createElement(require('D:/workspace/web/antd-course/node_modules/_umi-build-dev@1.7.8@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+            "component": () => React.createElement(require('E:/项目/web/web/antd-course/node_modules/_umi-build-dev@1.8.0@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
           }
         ]
       },
       {
-        "component": () => React.createElement(require('D:/workspace/web/antd-course/node_modules/_umi-build-dev@1.7.8@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+        "component": () => React.createElement(require('E:/项目/web/web/antd-course/node_modules/_umi-build-dev@1.8.0@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
       }
     ]
   },
   {
-    "component": () => React.createElement(require('D:/workspace/web/antd-course/node_modules/_umi-build-dev@1.7.8@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
+    "component": () => React.createElement(require('E:/项目/web/web/antd-course/node_modules/_umi-build-dev@1.8.0@umi-build-dev/lib/plugins/404/NotFound.js').default, { pagesPath: 'src/pages', hasRoutesInConfig: true })
   }
 ];
 window.g_routes = routes;

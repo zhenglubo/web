@@ -3,19 +3,18 @@ import { consoleTestResultHandler } from '_tslint@5.12.1@tslint/lib/test';
 
 export default {
 
-  namespace: 'users',
+  namespace: 'user',
 
   state: {
-    userList: [],
+    data:[],
+    pagination:{},
   },
 
   effects: {
-    *queryList({ _ }, { call, put }) {
-        console.log('11111111111111111');
-        const rsp = yield call(userService.queryList);
-        console.log('queryList');
+    *queryList({payload}, { call, put }) {
+        const rsp = yield call(userService.queryList,payload);
         console.log(rsp);
-        yield put({ type: 'saveList', payload: { cardsList: rsp.result } });
+        yield put({ type: 'saveList', payload: rsp});
     },
     *updateOrder({payload}){
       console.log("===============")
@@ -25,10 +24,15 @@ export default {
   },
 
   reducers: {
-    saveList(state, { payload: { userList } }) {
+    saveList(state, action) {
         return {
           ...state,
-          userList,
+          data:action.payload.data.records,
+              pagination:{
+                          current:action.payload.data.current,
+                          pageSize:action.payload.data.size,
+                          total:action.payload.data.total
+                        }
         }
       },
   },

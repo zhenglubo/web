@@ -1,4 +1,4 @@
-import { Table ,Pagination ,Button,Divider, Modal, Form,Input,DatePicker,Select, Row } from 'antd';
+import { Table,Col,Switch ,Pagination ,Button,Divider, Modal, Form,Input,DatePicker,Select, Row ,Badge} from 'antd';
 import  React,{Component,Fragment} from 'react';
 import { connect } from 'dva';
 import { Card } from 'antd-mobile';
@@ -22,122 +22,87 @@ const { Search, TextArea } = Input;
 const SelectOption=Select.Option
  
 @Form.create()
-//@connect(mapStateToProps)
-@connect(({ users, loading }) => ({
-  users,
-  loading: loading.models.users,
+@connect(({ user, loading }) => ({
+  user,
+  loading: loading.models.user,
 }))
 export default class user extends Component{
   
 columns = [
     {
-      title: '收货人', width: 100, dataIndex: 'name', key: 'name', fixed: 'left',
+      title: 'ID', width: 100, dataIndex: 'id', key: 'name',
     },
     {
-      title: '年龄', width: 100, dataIndex: 'age', key: 'age', fixed: 'left',
+      title: '昵称', width: 100, dataIndex: 'username', key: 'age',
     },
     {
-      title: '收货地址', dataIndex: 'address', key: '1', width: 150,
+      title: '联系电话', dataIndex: 'contactPhone', key: '1', width: 150,
     },
     {
-      title: '联系电话', dataIndex: 'phone', key: '2', width: 150,
+      title: '用户角色', dataIndex: 'userRoleId', key: '2', width: 150,
     },
     {
-      title: '订单号', dataIndex: 'orderId', key: '3', width: 150,
+      title: '姓名', dataIndex: 'realName', key: '3', width: 150,
     },
     {
-      title: '发货人', dataIndex: 'username', key: '4', width: 150,
+      title: '是否禁用', 
+      dataIndex: 'userState',
+       key: '4', 
+       width: 150,
+       render:text=>
+        text===true?
+          (<Switch checkedChildren="否" disabled='true' defaultChecked />):
+          (<Switch unCheckedChildren="是" disabled='true'   />)
+        //text===true?(<Badge status="success" text="是" />):(<Badge color='red' status="false" text="否" />)
     },
-    {
-      title: '收货日期', dataIndex: 'date', key: '5', width: 150,
-    },
-    {
-      title: '物流状态', dataIndex: 'status', key: '6', width: 150,
-    },
-    {
-      title: '订单总额', dataIndex: 'totalFee', key: '7', width: 150,
-    },
-    { title: '交易额', dataIndex: 'totalFee', key: '8',width:150 },
-    { title: '支付方式', dataIndex: 'payType', key: '9' ,width:150 },
-    { title: '数量', dataIndex: 'number', key: '10',width:150 },
-    { title: '评论', dataIndex: 'content', key: '11' },
     {
       title: '操作',
       key: 'operation',
-      fixed: 'right',
+      // fixed: 'right',
       width: 100,
       render: (text, record) => (
         <Fragment>
           <a onClick={() => this.handleUpdateModalVisible(true, record)}>修改</a>
-          <Divider type="horize" />
-          <a href="">删除</a>
         </Fragment>
       ),
     },
   ];
-  data = [{
-    key: '1',
-    name: '金山商城',
-    age: 32,
-    address: '广东惠州市惠阳',
-    phone:'156784****',
-    orderId:'6471457814',
-    username:'王**',
-    date:'2019-04-01',
-    status:'已收货',
-    totalFee:'5640.50',
-    payType:'现付',
-    number:'4',
-    content:'价格合理，物流速度快，两天货'
-  },
-  {
-    key: '2',
-    name: '渔家',
-    age: 32,
-    address: '四川成都',
-    phone:'1387462****',
-    orderId:'6471457814',
-    username:'赵某',
-    date:'2019-04-03',
-    status:'已完成',
-    totalFee:'7000.00',
-    payType:'现付',
-    number:'2',
-    content:'已收货，质量不错'
-  }
   
-  ];
 
 
 
   state={
-    userList:[],
     pagination: {
       pageSize:10,
       current:1,
-      total:20
+      total:0
     },
     loading: true,
     updateModalVisible: false,
     stepFormValues: {},
+    data:[],
   };
 
-  formLayout = {
-    labelCol: { span: 7 },
-    wrapperCol: { span: 13 },
-  };
+  // formLayout = {
+  //   labelCol: { span: 7 },
+  //   wrapperCol: { span: 13 },
+  // };
   
     
 
-  // componentDidMount(){
-  //   this.listSearch();
-  // }
+  componentDidMount(){
+    this.listSearch();
+  }
 
-  // listSearch = () =>{
-  //   this.props.dispatch({
-  //     type:'userspace/queryList',
-  //   });
-  // }
+  listSearch = () =>{
+    const {pagination} =this.state
+    this.props.dispatch({
+      type:'user/queryList',
+      payload:{
+        ...pagination
+      }
+    });
+  }
 
   handleUpdateModalVisible = (flag, record) => {
     this.setState({
@@ -199,14 +164,20 @@ columns = [
   }
 
   render(){
-    // const {userList=[]} = this.props;
-    // this.setState({userList:userList});
-    const pagination = this.state.pagination;
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 8 },
+        sm: { span: 8 },
+      },
+      wrapperCol: {
+        xs: { span: 16 },
+        sm: { span: 16 },
+      },
+    };
+    const {data,pagination} = this.props.user;
     const { getFieldDecorator } = this.props.form;
     const { modalVisible, form, handleAdd, handleModalVisible,handleSubmit } = this.props;
     const {current={}} = this.state;
-
-    
     return(
       <div>
         <Card >
@@ -217,9 +188,9 @@ columns = [
           <Table 
             rowSelection={rowSelection} 
             columns={this.columns} 
-            dataSource={this.data} 
+            dataSource={data} 
             pagination={pagination}
-            scroll={{ x: 2000}}
+            // scroll={{ x: 2000}}
             />
         </Card>
         <Modal visible={this.state.updateModalVisible}
@@ -227,51 +198,44 @@ columns = [
           destroyOnClose
           onCancel={this.handleCancel}
           onOk={this.handOk}
-          width={640}
+          width={600}
           
         >
-          <Form onSubmit={this.handleSubmit} layout="inline">
-            <Row>
-              <FormItem label="发货方名称" {...this.formLayout}>
-                {getFieldDecorator('name', {
-                  rules: [{ required: true, message: '请输入任务名称' }],
-                  initialValue:current?current.name:null,
-                })(<Input placeholder="请输入" />)}
+          <Form {...formItemLayout}  onSubmit={this.handleSubmit} layout="inline">
+              
+              <FormItem label="昵称" >
+                {getFieldDecorator('username', {
+                  rules: [{ required: true, message: '昵称' }],
+                  initialValue:current?current.username:null,
+                })(<Input disabled='true' placeholder="请输入" />)}
               </FormItem>
-            </Row>
-            <Row>
-              <FormItem label="联系电话" {...this.formLayout}>
-                {getFieldDecorator('phone', {
-                  rules: [{ required: true, message: '请输入用户名' }],
-                  initialValue:current?current.phone:null,
-                })(
-                  <Input placeholder="请输入" />
-                )}
-              </FormItem>
-            </Row>
-            <Row>
-              <FormItem label="订单状态" {...this.formLayout}>
-                {getFieldDecorator('status', {
-                  rules: [{ required: true, message: '请设置订单状态' }],
-                  initialValue: current?current.status:null,
-                })(
-                  <Select placeholder="请选择">
-                    <SelectOption value="0">未发货</SelectOption>
-                    <SelectOption value="1">运输中</SelectOption>
-                    <SelectOption value="2">已完成</SelectOption>
-                  </Select>
-                )}
-              </FormItem>
-            </Row>
-            <Row>
-              <FormItem  label="评论" {...this.formLayout}>
-                {getFieldDecorator('content', {
-                  rules: [{ message: '请输入评论', required:true}],
-                  initialValue: current?current.content:null,
-                })(
-                  <Input placeholder="请输入" />)}
-              </FormItem>
-            </Row>  
+                <FormItem label="联系电话" >
+                  {getFieldDecorator('contactPhone', {
+                    rules: [{ required: true, message: '请输入用户名' }],
+                    initialValue:current?current.contactPhone:null,
+                  })(
+                    <Input placeholder="请输入" />
+                  )}
+                </FormItem>
+                
+                <FormItem  label="姓名" >
+                  {getFieldDecorator('realName', {
+                    rules: [{ message: '请输入姓名', required:true}],
+                    initialValue: current?current.realName:null,
+                  })(
+                    <Input placeholder="请输入" />)}
+                </FormItem>
+                <FormItem label="是否禁用" >
+                  {getFieldDecorator('userState', {
+                    rules: [{ required: true, message: '请设置状态' }],
+                    initialValue: current?current.userState?'否':'是':'否',
+                  })(
+                    <Select defaultValue={current.userState} style={{width:180}} placeholder="请选择">
+                      <SelectOption value="false">失效</SelectOption>
+                      <SelectOption value="true">有效</SelectOption>
+                    </Select>
+                  )}
+                </FormItem>
           </Form>
         </Modal>
       </div>
@@ -279,10 +243,4 @@ columns = [
   };
 }
 
-// function mapStateToProps(state) {
-//   console.log('state');
-//   console.log(state.userList);
-//   return {
-//     userList: state.userList,
-//   };
-// }
+
