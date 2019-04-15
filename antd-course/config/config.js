@@ -11,12 +11,15 @@ export default {
       component: '../layout',
       routes: [
         {
-          path: '/',
-          component: 'User/User',
+          path:'/',
+          component:'user/user'
         },
         {
-          path: '/user/user',
-          component: 'User/User'
+          path: '/user',
+          routes:[
+            {path:'/user/user',component:'user/user'},
+            {path:'/user/sender',component:'user/sender'},
+          ]
         },
         {
           path:'/order',

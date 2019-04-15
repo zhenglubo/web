@@ -1,4 +1,4 @@
-import {Form, Row, Col, Input, Button, Icon,Pagination} from 'antd';
+import {Form, Row, Col, Input, Button, Icon,Pagination,Divider} from 'antd';
 import  React,{Component} from 'react';
  
 @Form.create()
@@ -39,7 +39,7 @@ export default class UserSearchForm extends Component {
     render() {
       const { getFieldDecorator } = this.props.form;
       return (
-        <Form layout="inline" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} onSubmit={this.handleSearch}>
+        <Form  layout="inline" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} onSubmit={this.handleSearch}>
           <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
             <Col span={8} key={1}>
               <Form.Item label={'姓名/昵称'} style={{marginTop:10,marginLeft:10}}>
@@ -57,14 +57,25 @@ export default class UserSearchForm extends Component {
             </Col>
           </Row>
           <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+              
             <Col span={24} style={{ textAlign: 'right'}}>
-              <Button type="primary" htmlType="submit">Search</Button>
+              <Button type="primary" htmlType="submit" onClick={this.showAddModal}>查询</Button>
               <Button style={{ marginLeft: 8 ,marginRight:20}} onClick={this.handleReset}>
-                Clear
+                重置
               </Button>
             </Col>
           </Row>
+          <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          {/* <Divider/> */}
+          <Col span={12} >
+              <Button style={{marginLeft:20}} icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
+                新建用户
+              </Button>
+              </Col>
+          </Row>
         </Form>
+
+        
       );
     }
   }
