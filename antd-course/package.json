@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "echarts": "^4.2.1",
+    "echarts-extension-amap": "^1.0.0-rc.3",
     "lodash": "^4.17.11",
-    "lodash-decorators": "^6.0.1"
+    "lodash-decorators": "^6.0.1",
+    "react-amap": "^1.2.8"
   }
 }
