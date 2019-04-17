@@ -1,4 +1,4 @@
-import * as userService from '../service/user';
+import * as routeService from '../service/route';
 
 export default {
 
@@ -11,7 +11,7 @@ export default {
 
   effects: {
     *queryList({payload}, { call, put }) {
-        const rsp = yield call(userService.queryList,payload);
+        const rsp = yield call(routeService.search,payload);
         console.log(rsp);
         yield put({ type: 'saveList', payload: rsp});
     },

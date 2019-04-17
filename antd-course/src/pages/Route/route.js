@@ -102,7 +102,7 @@ export default class route extends Component{
   }
 
   listSearch=()=>{
-    const {pagination} =this.state
+    const {pagination,formValue} =this.state
     this.props.dispatch({
       type:'route/queryList',
       payload:{
@@ -127,7 +127,6 @@ export default class route extends Component{
         <Divider/>
         <Table
         columns={this.columns} 
-        
         pagination={pagination}
         />
       </div>
